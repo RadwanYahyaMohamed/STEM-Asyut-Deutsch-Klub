@@ -156,10 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-            } else {
-                // Optional: remove visible when scrolled past
-                if (entry.boundingClientRect.top < 0) {
-                    entry.target.classList.remove('visible');
+                // For a "no rewind" animation: once revealed, keep it revealed.
+                // Unobserve committee cards so they never get re-processed.
+                if (entry.target.classList.contains('committee-card')) {
+                    teamObserver.unobserve(entry.target);
                 }
             }
         });
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Observe committee cards with staggered delay
     committeeCards.forEach((card, index) => {
-        card.dataset.delay = index * 0.1;
+        card.style.setProperty('--stagger-delay', `${index * 90}ms`);
         teamObserver.observe(card);
     });
 });
