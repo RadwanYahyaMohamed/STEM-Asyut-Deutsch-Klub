@@ -71,8 +71,8 @@
             </div>
 
             <div class="resources-stats" data-reveal>
-                <div class="stat-item"><strong id="visible-resources-count">14</strong><span>Resources</span></div>
-                <div class="stat-item"><strong>4</strong><span>Categories</span></div>
+                <div class="stat-item"><strong id="visible-resources-count">15</strong><span>Resources</span></div>
+                <div class="stat-item"><strong>6</strong><span>Categories</span></div>
                 <div class="stat-item"><strong>A1-B1</strong><span>Levels</span></div>
                 <div class="stat-item"><strong>100%</strong><span>Free</span></div>
             </div>
@@ -82,6 +82,8 @@
                 <button class="filter-tab" data-filter="dictionaries" type="button">Dictionaries</button>
                 <button class="filter-tab" data-filter="video-courses" type="button">Video Courses</button>
                 <button class="filter-tab" data-filter="dw-german" type="button">DW German</button>
+                <button class="filter-tab" data-filter="reading-stories" type="button">Reading & Stories</button>
+                <button class="filter-tab" data-filter="easy-german" type="button">Easy German</button>
                 <button class="filter-tab" data-filter="pronunciation" type="button">Pronunciation</button>
             </div>
 
@@ -101,10 +103,20 @@
                     <h3>DW German</h3>
                     <p>Deutsche Welle learning tracks and practice.</p>
                 </article>
+                <article class="category-block" data-filter="reading-stories" role="button" tabindex="0" aria-label="Filter: Reading and Stories" style="--cat-color:#4f46e5;--cat-light:#eef2ff;">
+                    <i class="fas fa-book-reader"></i>
+                    <h3>Reading & Stories</h3>
+                    <p>Short texts and dialogues for listening and reading practice.</p>
+                </article>
+                <article class="category-block" data-filter="easy-german" role="button" tabindex="0" aria-label="Filter: Easy German" style="--cat-color:#ea580c;--cat-light:#ffedd5;">
+                    <i class="fas fa-street-view"></i>
+                    <h3>Easy German</h3>
+                    <p>Real-life German through interviews, podcasts, and immersion.</p>
+                </article>
                 <article class="category-block" data-filter="pronunciation" role="button" tabindex="0" aria-label="Filter: Pronunciation" style="--cat-color:#059669;--cat-light:#d1fae5;">
                     <i class="fas fa-microphone-alt"></i>
                     <h3>Pronunciation</h3>
-                    <p>Real speech exposure and pronunciation tools.</p>
+                    <p>Hear native speakers and perfect your pronunciation.</p>
                 </article>
             </div>
 
@@ -277,17 +289,31 @@
                     </div>
                 </article>
 
-                <article class="resource-card reveal-item" data-reveal data-category="pronunciation" style="--cat-color:#059669;--cat-light:#d1fae5;">
+                <article class="resource-card reveal-item" data-reveal data-category="easy-german" style="--cat-color:#ea580c;--cat-light:#ffedd5;">
                     <div class="card-image-wrap">
                         <img class="card-main-image" src="../Resources-images/EASYGERMANWEB.png" alt="Easy German website cover image">
                         <img class="card-favicon" src="https://www.google.com/s2/favicons?domain=easygerman.org&sz=64" alt="Easy German favicon" onerror="this.onerror=null;this.src='../images/Logo.png';">
                     </div>
                     <div class="card-body">
-                        <span class="card-badge level-badge">A1+</span>
-                        <span class="card-badge category-badge">Pronunciation</span>
+                        <span class="card-badge level-badge">A1-B1</span>
+                        <span class="card-badge category-badge">Easy German</span>
                         <h3>Easy German Website</h3>
-                        <p>Learn German Naturally — Authentic street interviews, podcasts, and interactive exercises with real Germans.</p>
+                        <p>Learn German Naturally — Authentic street interviews, podcasts, and interactive exercises with real Germans in everyday situations.</p>
                         <a href="https://www.easygerman.org" target="_blank" rel="noopener noreferrer" class="card-btn">Visit</a>
+                    </div>
+                </article>
+
+                <article class="resource-card reveal-item" data-reveal data-category="reading-stories" style="--cat-color:#4f46e5;--cat-light:#eef2ff;">
+                    <div class="card-image-wrap">
+                        <img class="card-main-image" src="../Resources-images/lernedeutsch.png" alt="LernLaterne cover image">
+                        <img class="card-favicon" src="https://www.google.com/s2/favicons?domain=lernlaterne.de&sz=64" alt="LernLaterne favicon" onerror="this.onerror=null;this.src='../images/Logo.png';">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-badge level-badge">A1-B1</span>
+                        <span class="card-badge category-badge">Reading & Stories</span>
+                        <h3>LernLaterne</h3>
+                        <p>Practice Through Stories — Short German stories and dialogues to strengthen listening, reading, and vocabulary from A1 to B1.</p>
+                        <a href="https://www.lernlaterne.de/" target="_blank" rel="noopener noreferrer" class="card-btn">Visit</a>
                     </div>
                 </article>
 
