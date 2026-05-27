@@ -719,26 +719,60 @@
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
     margin-bottom: 80px;
+    perspective: 1200px;
 }
 
 .committee-card {
-    background: white;
+    background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #eef2ff 100%);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-    transition: all 0.4s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition:
+        opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(34px) scale(0.97);
+    position: relative;
+    border: 1px solid #e2e8f0;
+    filter: blur(1.5px);
+    transition-delay: var(--stagger-delay, 0ms);
+}
+
+.committee-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.42) 50%, transparent 70%);
+    transform: translateX(-110%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+}
+
+.committee-card::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: linear-gradient(180deg, #111827, #dc2626, #f59e0b);
+    opacity: 0.85;
 }
 
 .committee-card.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
 }
 
 .committee-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px) rotateX(2deg);
+    box-shadow: 0 24px 48px rgba(15, 23, 42, 0.2);
+    border-color: rgba(99, 102, 241, 0.32);
+}
+
+.committee-card:hover::before {
+    transform: translateX(110%);
 }
 
 .committee-card:last-child {
@@ -753,6 +787,7 @@
     padding: 30px 30px 20px;
     text-align: center;
     border-bottom: 1px solid #e2e8f0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.86));
 }
 
 .committee-icon {
@@ -766,6 +801,13 @@
     margin: 0 auto 20px;
     color: white;
     font-size: 1.8rem;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.25);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.committee-card:hover .committee-icon {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 16px 28px rgba(15, 23, 42, 0.28);
 }
 
 .committee-name {
@@ -779,12 +821,14 @@
     color: #64748b;
     font-size: 0.95rem;
     line-height: 1.6;
+    max-width: 350px;
+    margin: 0 auto;
 }
 
 /* Committee Leaders */
 .committee-leaders {
     padding: 25px 30px;
-    background: #f8fafc;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     border-bottom: 1px solid #e2e8f0;
 }
 
@@ -805,14 +849,17 @@
 .leader-card {
     text-align: center;
     padding: 15px;
-    background: white;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid #e2e8f0;
 }
 
 .leader-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.16);
+    border-color: rgba(59, 130, 246, 0.45);
 }
 
 .leader-image {
@@ -823,6 +870,12 @@
     margin: 0 auto 15px;
     border: 3px solid #3b82f6;
     display: block;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.leader-card:hover .leader-image {
+    transform: scale(1.06);
+    border-color: #dc2626;
 }
 
 .placeholder-image {
@@ -855,6 +908,7 @@
 /* Committee Members */
 .committee-members {
     padding: 25px 30px;
+    background: rgba(255, 255, 255, 0.75);
 }
 
 .members-title {
@@ -874,10 +928,16 @@
 .member-item {
     padding: 10px 0;
     border-bottom: 1px dashed #e2e8f0;
-    color: #475569;
+    color: #334155;
     font-size: 1rem;
     display: flex;
     align-items: center;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.member-item:hover {
+    transform: translateX(6px);
+    color: #0f172a;
 }
 
 .member-item:last-child {
@@ -886,11 +946,20 @@
 
 .member-item:before {
     content: '•';
-    color: #3b82f6;
+    color: #dc2626;
     font-size: 1.5rem;
     margin-right: 10px;
     font-weight: bold;
 }
+
+/* Committee accent colors per card */
+.committee-card:nth-of-type(1)::after { background: linear-gradient(180deg, #10b981, #059669); }
+.committee-card:nth-of-type(2)::after { background: linear-gradient(180deg, #8b5cf6, #7c3aed); }
+.committee-card:nth-of-type(3)::after { background: linear-gradient(180deg, #f59e0b, #d97706); }
+.committee-card:nth-of-type(4)::after { background: linear-gradient(180deg, #1347f0, #2e77f6); }
+.committee-card:nth-of-type(5)::after { background: linear-gradient(180deg, #dc2424, #f35454); }
+.committee-card:nth-of-type(6)::after { background: linear-gradient(180deg, #64d25d, #5cd776); }
+.committee-card:nth-of-type(7)::after { background: linear-gradient(180deg, #ec4899, #f97316); }
 
 /* Leadership Section (Special) */
 .leadership-section {
@@ -906,30 +975,77 @@
 }
 
 .leadership-card {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background:
+        radial-gradient(circle at 18% 22%, rgba(255, 204, 0, 0.16) 0, transparent 42%),
+        radial-gradient(circle at 84% 14%, rgba(221, 23, 22, 0.2) 0, transparent 44%),
+        linear-gradient(145deg, #050608 0%, #0f172a 48%, #1a0b0b 100%);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.28);
     color: white;
+    position: relative;
+    isolation: isolate;
+}
+
+.leadership-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(120deg, transparent 42%, rgba(255, 255, 255, 0.06) 50%, transparent 58%),
+        repeating-linear-gradient(
+            to right,
+            transparent 0 28px,
+            rgba(255, 255, 255, 0.035) 28px 29px
+        );
+    pointer-events: none;
+}
+
+.leadership-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #111111 0%, #dd1716 50%, #ffcc00 100%);
+    z-index: 1;
 }
 
 .leadership-header {
     padding: 40px 40px 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(4px);
+    position: relative;
+    z-index: 2;
+}
+
+.leadership-header::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: min(86%, 650px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.65), transparent);
 }
 
 .leadership-icon {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    background: linear-gradient(135deg, #111111, #dd1716 65%, #ffcc00);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
     color: white;
     font-size: 2rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
+    animation: leadershipIconPulse 3.5s ease-in-out infinite;
 }
 
 .leadership-name {
@@ -937,10 +1053,12 @@
     color: white;
     margin-bottom: 10px;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
 .leadership-description {
-    color: #cbd5e1;
+    color: #dbe4f2;
     font-size: 1.05rem;
     line-height: 1.6;
     max-width: 600px;
@@ -949,6 +1067,8 @@
 
 .leadership-body {
     padding: 40px;
+    position: relative;
+    z-index: 2;
 }
 
 .leaders-main-grid {
@@ -956,21 +1076,47 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 30px;
     margin-bottom: 40px;
+    align-items: stretch;
 }
 
 .leader-main-card {
-    background: rgba(255, 255, 255, 0.1);
+    background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 25px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    animation: leaderCardFadeIn 0.8s ease both;
+}
+
+.leader-main-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.leader-main-card::before {
+    content: "";
+    position: absolute;
+    inset: -120% auto auto -40%;
+    width: 60%;
+    height: 280%;
+    transform: rotate(22deg);
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: transform 0.6s ease;
 }
 
 .leader-main-card:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-12px) scale(1.015);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 100%);
+    border-color: rgba(255, 204, 0, 0.45);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+}
+
+.leader-main-card:hover::before {
+    transform: translateX(230%) rotate(22deg);
 }
 
 .leader-main-image {
@@ -979,8 +1125,16 @@
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto 20px;
-    border: 3px solid #3b82f6;
+    border: 3px solid rgba(255, 204, 0, 0.8);
     display: block;
+    box-shadow: 0 14px 24px rgba(0, 0, 0, 0.38);
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.leader-main-card:hover .leader-main-image {
+    transform: scale(1.06);
+    border-color: #dd1716;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.5);
 }
 
 .leader-main-placeholder {
@@ -1003,19 +1157,49 @@
     color: white;
     margin-bottom: 8px;
     font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .leader-main-role {
     font-size: 1rem;
-    color: #60a5fa;
+    color: #ffcc00;
     margin-bottom: 15px;
     font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 .leader-main-bio {
-    color: #cbd5e1;
+    color: #e2e8f0;
     font-size: 0.9rem;
     line-height: 1.5;
+}
+
+.leadership-card:hover .leadership-icon {
+    animation-duration: 2.4s;
+}
+
+@keyframes leaderCardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes leadershipIconPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
+    }
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 14px 28px rgba(221, 23, 22, 0.4);
+    }
 }
 
 .leadership-members {
